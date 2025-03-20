@@ -6,7 +6,11 @@ $ mkdir image
 ```
 
 ```bash
-$ echo -e 'FROM pytorch/pytorch:latest
+$ cat image/Dockerfile
+```
+
+```text
+FROM pytorch/pytorch:latest
 
 # Install Jupyter
 RUN pip install jupyterlab
@@ -18,7 +22,7 @@ COPY train.py /workspace/train.py
 # Expose Jupyter Notebook port
 EXPOSE 8888
 
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--NotebookApp.token=\'\'"]' | tee image/Dockerfile
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--NotebookApp.token=''"]
 ```
 
 - buildin the container image
