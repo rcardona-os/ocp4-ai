@@ -27,7 +27,7 @@ CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--Noteboo
 
 - buildin the container image
 ```bash
-$ podman build -t quay.io/rcardona/k8s-simple-train:latest .
+$ podman build -t quay.io/rcardona/k8s-simple-train:latest image/
 ```
 
 ```bash
