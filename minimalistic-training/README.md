@@ -2,6 +2,10 @@
 
 - creating Dockerfile file
 ```bash
+$ mkdir image
+```
+
+```bash
 $ echo -e 'FROM pytorch/pytorch:latest
 
 # Install Jupyter
@@ -14,16 +18,16 @@ COPY train.py /workspace/train.py
 # Expose Jupyter Notebook port
 EXPOSE 8888
 
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--NotebookApp.token=''"]' | tee container-image/Dockerfile
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--NotebookApp.token=''"]' | tee image/Dockerfile
 ```
 
 - buildin the container image
 ```bash
-$ podman build -t your-dockerhub-username/k8s-simple-train:latest .
+$ podman build -t quay.io/rcardona/k8s-simple-train:latest .
 ```
 
 ```bash
-$ podman push your-dockerhub-username/k8s-simple-train:latest
+$ podman push quay.io/k8s-simple-train:latest
 ```
 
 
