@@ -69,3 +69,25 @@ $ podman push quay.io/k8s-simple-model:latest
 $ oc new-project datascience
 ```
 
+#### - deploy the model
+```bash
+apiVersion: v1
+kind: Pod
+metadata:
+  name: train-pod
+spec:
+  restartPolicy: Never
+  containers:
+  - name: pytorch-training
+    image: your-dockerhub-username/k8s-train:latest
+    command: ["python", "/workspace/train.py"]
+    resources:
+      limits:
+        nvidia.com/gpu: 1  # Request 1 GPU
+    volumeMounts:
+    - name: model-storage
+      mountPath: /workspace
+  volumes:
+  - name: model-storage
+    emptyDir: {}  # Temporary storage for model files
+```
