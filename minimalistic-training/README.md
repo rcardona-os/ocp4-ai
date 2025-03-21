@@ -60,7 +60,7 @@ $ podman build -t quay.io/rcardona/k8s-simple-model:latest
 ```
 
 ```bash
-$ podman push quay.io/k8s-simple-model:latest
+$ podman push quay.io/rcardona/k8s-simple-model:latest
 ```
 
 
@@ -74,13 +74,13 @@ $ oc new-project datascience
 apiVersion: v1
 kind: Pod
 metadata:
-  name: train-pod
+  name: training-pod
 spec:
   restartPolicy: Never
   containers:
   - name: pytorch-training
-    image: your-dockerhub-username/k8s-train:latest
-    command: ["python", "/workspace/train.py"]
+    image: quay.io/rcardona/k8s-simple-model:latest
+    command: ["python", "/workspace/simple-model.py"]
     resources:
       limits:
         nvidia.com/gpu: 1  # Request 1 GPU
