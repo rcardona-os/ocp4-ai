@@ -1,6 +1,7 @@
 #### 0 - Prerequisites
 
 - [x] Openshift v4.18
+- [x] Default storage class block based
 - [x] Nvidia GPU capable worker
 
 #### 1 - Create the model
