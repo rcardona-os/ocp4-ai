@@ -4,7 +4,7 @@
 - [x] Default storage class block based
 - [x] Nvidia GPU capable worker
 
-#### 1 - Create the model
+#### 1 - Creating the model
 
 ```bash
 $ cat train_torch.py
