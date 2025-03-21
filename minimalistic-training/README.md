@@ -128,7 +128,7 @@ COPY WMT_combined.csv .
 CMD ["python", "train_torch.py"]
 ```
 
-- buildin the container image 
+- building the container image 
 ```bash
 $ podman build -t quay.io/rcardona/walmart-train-demo:latest .
 ```
