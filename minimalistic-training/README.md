@@ -142,7 +142,7 @@ $ podman push quay.io/rcardona/walmart-train-demo:latest
 $ oc new-project stock-walmart
 ```
 
-#### 4 - Persiting model & plot
+#### 4 - Persisting model & plot
 ```bash
 $ cat << EOF | oc apply -f -
 apiVersion: v1
