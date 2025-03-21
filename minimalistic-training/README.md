@@ -1,6 +1,6 @@
 #### 0 - Prerequisites
 
-- [ x ] Openshift v4.18
+[ x ] - Openshift v4.18
 - 
 
 #### - create the model
