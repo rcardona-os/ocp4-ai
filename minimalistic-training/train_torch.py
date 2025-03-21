@@ -6,16 +6,17 @@ import matplotlib.pyplot as plt
 import os
 import time
 
-# File paths
-DATA_PATH = os.getenv("DATA_PATH", "/workspace/WMT.csv")
+# Read environment config
+DATA_PATH = os.getenv("DATA_PATH", "/workspace/WMT_combined.csv")
 MODEL_PATH = os.getenv("MODEL_PATH", "/workspace/model.pth")
 PLOT_PATH = os.getenv("PLOT_PATH", "/workspace/prediction_plot.png")
+FORCE_CPU = os.getenv("FORCE_CPU", "false").lower() == "true"
 
 # Device setup
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu" if FORCE_CPU else ("cuda" if torch.cuda.is_available() else "cpu"))
 print(f"🚀 Using device: {device}")
 
-# Load data
+# Load dataset
 df = pd.read_csv(DATA_PATH)
 df["Date"] = pd.to_datetime(df["Date"])
 df = df.sort_values("Date")
@@ -26,16 +27,14 @@ features = ["Open", "High", "Low", "Close", "Volume"]
 X = torch.tensor(df[features].values, dtype=torch.float32)
 y = torch.tensor(df["Next_Close"].values, dtype=torch.float32).unsqueeze(1)
 
-# Train/test split
+# Split dataset
 split = int(0.8 * len(X))
 X_train, X_test = X[:split], X[split:]
 y_train, y_test = y[:split], y[split:]
 
+# DataLoader
 train_ds = TensorDataset(X_train, y_train)
-test_ds = TensorDataset(X_test, y_test)
-
 train_loader = DataLoader(train_ds, batch_size=64, shuffle=True)
-test_loader = DataLoader(test_ds, batch_size=64)
 
 # Define model
 model = nn.Sequential(
@@ -46,14 +45,14 @@ model = nn.Sequential(
     nn.Linear(32, 1)
 ).to(device)
 
-# Loss and optimizer
-loss_fn = nn.MSELoss()
+# Optimizer and loss
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+loss_fn = nn.MSELoss()
 
-# Training loop
-start = time.time()
+# Train
 epochs = 20
 losses = []
+start = time.time()
 for epoch in range(epochs):
     model.train()
     total_loss = 0
@@ -76,7 +75,7 @@ print(f"⏱️ Training time: {end - start:.2f} seconds")
 torch.save(model.state_dict(), MODEL_PATH)
 print(f"💾 Model saved to {MODEL_PATH}")
 
-# Evaluate and plot
+# Predict and save plot
 model.eval()
 with torch.no_grad():
     y_pred = model(X_test.to(device)).cpu().numpy()
@@ -85,10 +84,10 @@ with torch.no_grad():
 plt.figure(figsize=(12, 5))
 plt.plot(y_true[:100], label="Actual")
 plt.plot(y_pred[:100], label="Predicted", linestyle="--")
-plt.title("PyTorch: Next-Day Close Prediction")
+plt.title("Next-Day Close Price Prediction (PyTorch)")
 plt.xlabel("Days")
 plt.ylabel("Price")
 plt.legend()
 plt.tight_layout()
 plt.savefig(PLOT_PATH)
-print(f"📊 Prediction plot saved to {PLOT_PATH}")
+print(f"📊 Plot saved to {PLOT_PATH}")
