@@ -106,38 +106,6 @@ plt.savefig(PLOT_PATH)
 print(f"📊 Plot saved to {PLOT_PATH}")
 ```
 
-- Creating a simple model algorithm
-```bash
-$ cat  simple-model.py
-```
-
-```text
-import torch
-
-# Create a simple model
-model = torch.nn.Linear(10, 1)
-
-# Generate dummy data
-x = torch.randn(100, 10)
-y = torch.randn(100, 1)
-
-# Loss and optimizer
-criterion = torch.nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
-
-# Training loop
-for epoch in range(10):
-    optimizer.zero_grad()
-    output = model(x)
-    loss = criterion(output, y)
-    loss.backward()
-    optimizer.step()
-    print(f"Epoch [{epoch+1}/10], Loss: {loss.item()}")
-
-print("Training complete!")
-torch.save(model.state_dict(), "model.pth")
-```
-
 #### 2 - (OPTIONAL) Create the container image with model application
 
 ```bash
