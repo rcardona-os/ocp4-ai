@@ -106,7 +106,7 @@ plt.savefig(PLOT_PATH)
 print(f"📊 Plot saved to {PLOT_PATH}")
 ```
 
-#### 2 - (OPTIONAL) Create the container image with model application
+#### 2 - (OPTIONAL) Creating the container image with model application
 
 ```bash
 $ cat Dockerfile
@@ -137,7 +137,7 @@ $ podman build -t quay.io/rcardona/walmart-train-demo:latest .
 $ podman push quay.io/rcardona/walmart-train-demo:latest
 ```
 
-#### 3 - Create namespace
+#### 3 - Creating namespace
 ```bash
 $ oc new-project stock-walmart
 ```
