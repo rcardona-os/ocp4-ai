@@ -1,6 +1,6 @@
 #### - create the model
 
-- creating a simple model algorithm
+- Creating a simple model algorithm
 ```bash
 $ cat  simple-model.py
 ```
@@ -32,7 +32,7 @@ print("Training complete!")
 torch.save(model.state_dict(), "model.pth")
 ```
 
-#### - provision container image
+#### - Provision container image
 
 ```bash
 $ cat Dockerfile
@@ -64,13 +64,14 @@ $ podman push quay.io/rcardona/k8s-simple-model:latest
 ```
 
 
-#### - creare namespace
+#### - Creare namespace
 ```bash
 $ oc new-project datascience
 ```
 
-#### - deploy the model
+#### - Deploy the model
 ```bash
+$ cat << EOF | oc apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -90,4 +91,10 @@ spec:
   volumes:
   - name: model-storage
     emptyDir: {}  # Temporary storage for model files
+EOF
+```
+
+#### - Check the model
+```bash
+$ oc logs -f 
 ```
