@@ -1,3 +1,8 @@
+#### 0 - Prerequisites
+
+- [ x ] Openshift v4.18
+- 
+
 #### - create the model
 
 - Creating a simple model algorithm
