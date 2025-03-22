@@ -4,6 +4,8 @@
 - [x] Default storage class block based
 - [x] Nvidia GPU capable worker
 
+## Model Training
+
 #### 1 - Creating the model
 
 ```bash
