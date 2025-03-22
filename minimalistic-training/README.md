@@ -231,7 +231,48 @@ spec:
 EOF
 ```
 
-#### - Check the model
+----
+## Model Serving
+#### - Model serving
 ```bash
-$ oc logs -f 
+$ cat serve_model.py
+```
+
+```text
+import torch
+from torch import nn
+from fastapi import FastAPI
+from pydantic import BaseModel
+import uvicorn
+
+class InputData(BaseModel):
+    Open: float
+    High: float
+    Low: float
+    Close: float
+    Volume: float
+
+# Model setup
+model = nn.Sequential(
+    nn.Linear(5, 64),
+    nn.ReLU(),
+    nn.Linear(64, 32),
+    nn.ReLU(),
+    nn.Linear(32, 1)
+)
+model.load_state_dict(torch.load("model.pth", map_location="cpu"))
+model.eval()
+
+app = FastAPI()
+
+@app.post("/predict")
+def predict(data: InputData):
+    x = torch.tensor([[data.Open, data.High, data.Low, data.Close, data.Volume]])
+    with torch.no_grad():
+        prediction = model(x).item()
+    return {"predicted_next_close": prediction}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
 ```
