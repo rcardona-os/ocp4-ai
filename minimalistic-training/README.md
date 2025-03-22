@@ -22,7 +22,7 @@ import os
 import time
 
 # Read environment config
-DATA_PATH = os.getenv("DATA_PATH", "/workspace/WMT_combined.csv")
+DATA_PATH = os.getenv("DATA_PATH", "/app/WMT_combined.csv")
 MODEL_PATH = os.getenv("MODEL_PATH", "/workspace/model.pth")
 PLOT_PATH = os.getenv("PLOT_PATH", "/workspace/prediction_plot.png")
 FORCE_CPU = os.getenv("FORCE_CPU", "false").lower() == "true"
@@ -117,7 +117,7 @@ $ cat Dockerfile
 ```text
 FROM pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
 
-WORKDIR /workspace
+WORKDIR /app
 
 # Install Python packages
 RUN pip install pandas matplotlib
@@ -127,7 +127,7 @@ COPY train_torch.py .
 COPY WMT_combined.csv .
 
 # Run training
-CMD ["python", "train_torch.py"]
+CMD ["python", "/app/train_torch.py"]
 ```
 
 - building the container image 
@@ -179,7 +179,7 @@ spec:
         - name: FORCE_CPU
           value: "true"
         - name: DATA_PATH
-          value: "/workspace/WMT_combined.csv"
+          value: "/app/WMT_combined.csv"
         - name: MODEL_PATH
           value: "/workspace/model.pth"
         - name: PLOT_PATH
