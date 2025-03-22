@@ -233,7 +233,7 @@ EOF
 
 ----
 ## Model Serving
-#### - Model serving
+#### 6 - Model serving
 ```bash
 $ cat serve_model.py
 ```
