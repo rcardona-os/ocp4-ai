@@ -5,8 +5,7 @@ metadata:
 spec:
   containers:
   - name: shell
-    image: registry.access.redhat.com/ubi8/ubi
-    command: ["/bin/sh", "-c", "sleep 3600"]
+    image: quay.io/rcardona/walmart-train-demo:latest
     volumeMounts:
     - name: model-storage
       mountPath: /workspace
