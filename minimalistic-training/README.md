@@ -174,7 +174,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: trainer
-        image: your-registry/walmart-train-demo:latest
+        image: quay.io/rcardona/walmart-train-demo:latest
         env:
         - name: FORCE_CPU
           value: "true"
@@ -211,7 +211,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: trainer
-        image: your-registry/walmart-train-demo:latest
+        image: quay.io/rcardona/walmart-train-demo:latest
         env:
         - name: DATA_PATH
           value: "/workspace/WMT_combined.csv"
