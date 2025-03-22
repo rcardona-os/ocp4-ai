@@ -198,7 +198,7 @@ spec:
 EOF
 ```
 
-#### 5 - Training with CPUs
+#### 5 - Training with GPUs
 ```bash
 $ cat << EOF | oc apply -f -
 apiVersion: batch/v1
@@ -214,7 +214,7 @@ spec:
         image: quay.io/rcardona/walmart-train-demo:latest
         env:
         - name: DATA_PATH
-          value: "/workspace/WMT_combined.csv"
+          value: "/app/WMT_combined.csv"
         - name: MODEL_PATH
           value: "/workspace/model.pth"
         - name: PLOT_PATH
