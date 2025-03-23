@@ -1,3 +1,4 @@
+```bash
 $ cat << EOF | oc apply -f -
 apiVersion: v1
 kind: Pod
@@ -17,8 +18,9 @@ spec:
       claimName: model-storage
   restartPolicy: Never
 EOF
+```
 
-
+```bash
 $ cat << EOF | oc apply -f -
 apiVersion: v1
 kind: Pod
@@ -37,3 +39,4 @@ spec:
       claimName: model-storage
   restartPolicy: Never
 EOF
+```
