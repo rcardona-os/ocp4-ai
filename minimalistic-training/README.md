@@ -98,6 +98,11 @@ end = time.time()
 
 print(f"⏱️ Training time: {end - start:.2f} seconds")
 
+# Ensure output directories exist
+import os
+os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
+os.makedirs(os.path.dirname(PLOT_PATH), exist_ok=True)
+
 # Save model
 torch.save(model.state_dict(), MODEL_PATH)
 print(f"💾 Model saved to {MODEL_PATH}")
@@ -193,9 +198,9 @@ spec:
         - name: DATA_PATH
           value: "/app/WMT_combined.csv"
         - name: MODEL_PATH
-          value: "/workspace/model.pth"
+          value: "/workspace/cpu/model.pth"
         - name: PLOT_PATH
-          value: "/workspace/prediction_plot.png"
+          value: "/workspace/cpu/prediction_plot.png"
         volumeMounts:
         - name: model-storage
           mountPath: /workspace
@@ -228,9 +233,9 @@ spec:
         - name: DATA_PATH
           value: "/app/WMT_combined.csv"
         - name: MODEL_PATH
-          value: "/workspace/model.pth"
+          value: "/workspace/gpu/model.pth"
         - name: PLOT_PATH
-          value: "/workspace/prediction_plot.png"
+          value: "/workspace/gpu/prediction_plot.png"
         volumeMounts:
         - name: model-storage
           mountPath: /workspace
